@@ -82,14 +82,28 @@ take_prv_atr(){
 # setting up the public section of the class
 take_pbl_atr(){
     echo "  public:" >> "$1.hpp"
-    echo "      $1(void);" >> "$1.hpp"
-    echo "      $1($1 const &obj);" >> "$1.hpp"
-    echo "      $1 &operator=($1 const &obj);" >> "$1.hpp"
-    echo "      ~$1(void);" >> "$1.hpp"
-    echo "      // getters and setters" >> "$1.hpp"
-    while read line; do
-        echo "      $line" >> "$1.hpp"
-    done < /tmp/"$1.tmp"
+    printf "$BLUE""Canonical Form:$RESET Do you want the$PURPEL $1$RESET class to be on the Canonical Form:\n"
+    printf "[1]$GREEN yes\n$RESET[2]$RED no$RESET\n>>: "
+    while read ch; do
+        if [[ "$ch" != "1" && "$ch" != "2" ]]; then
+            printf "\r$RED""Wrong choice:$RESET $ch try again\n>>: "
+        elif [ $ch == "2" ]; then
+            break
+        else
+            echo "      $1(void);" >> "$1.hpp"
+            echo "      $1($1 const &obj);" >> "$1.hpp"
+            echo "      $1 &operator=($1 const &obj);" >> "$1.hpp"
+            echo "      ~$1(void);" >> "$1.hpp"
+            break
+        fi
+    done
+    echo
+    if [[ -e "/tmp/$1.tmp" ]]; then
+        echo "      // getters and setters" >> "$1.hpp"
+        while read line; do
+            echo "      $line" >> "$1.hpp"
+        done < /tmp/"$1.tmp"
+    fi
     printf "\r$BLUE""Public Attributes:$RESET Do you want to add some public attributes for the$PURPEL $1$RESET class:\n"
     printf "[1]$GREEN yes\n$RESET[2]$RED no$RESET\n>>: "
     while read ch; do
