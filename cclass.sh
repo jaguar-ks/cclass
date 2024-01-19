@@ -177,3 +177,4 @@ do
     create_files $CLS
     printf "\r$GREEN""$CLS created succefully.$RESET\n"
 done
+
