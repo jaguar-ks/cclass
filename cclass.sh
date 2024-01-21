@@ -16,7 +16,8 @@ welcome(){
             ██║     ██║     ██║     ███████║███████╗███████╗
             ██║     ██║     ██║     ██╔══██║╚════██║╚════██║
             ╚██████╗╚██████╗███████╗██║  ██║███████║███████║
-             ╚═════╝ ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝$RESET\n"
+             ╚═════╝ ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝$RESET
+                    Made by:$RED 0xj4gu4r$RESET\n"
     
 }
 
@@ -164,6 +165,12 @@ create_files(){
 
 #dispalying the welcome msg
 welcome
+
+if [ $# -eq 1 ] && [ $1 == "update" ]; then
+    cd ~/.tools/cmake
+    git pull
+    exit
+fi
 
 #checking if there is argiments
 if [ $# -lt 1 ]; then
