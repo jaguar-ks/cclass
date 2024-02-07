@@ -167,7 +167,7 @@ create_files(){
 welcome
 
 if [ $# -eq 1 ] && [ $1 == "update" ]; then
-    cd ~/.tools/cmake
+    cd ~/.tools/cclass
     git pull
     exit
 fi
