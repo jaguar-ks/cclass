@@ -1,4 +1,4 @@
-import sys, os, subprocess, time, ClassCreate, shutil
+import sys, os, subprocess, time, ClassCreate, shutil, glob
 # from sys import argv
 from colorama import Fore, Style, init
 
@@ -42,13 +42,20 @@ if len(sys.argv) == 2 and sys.argv[1] == 'update':
         i=0
         while Updating.poll() is None:
             print_load()
+        sys.stdout.write(f'\rUpdating:{Fore.GREEN}✓{Style.RESET_ALL} ')
+        sys.stdout.flush()
         print()
         ExtSts = Updating.wait()
         if ExtSts != 0:print(f"{Fore.RED}ERROR :{Style.RESET_ALL}Updating failed.", file=sys.stderr)
         else:print(f"{Fore.GREEN}SUCSSES : {Style.RESET_ALL}Command updated sucssesfully.")
-        exit(ExtSts)
+        # exit(ExtSts)
 elif len(sys.argv) >= 2:
     sys.argv.pop(0)
     for i in sys.argv:
         ClassCreate.create_files(i)
-    shutil.rmtree("__pycache__")
+
+# cachFiles = glob.glob('**/*.pyc', recursive=True)
+# for f in cachFiles:
+#     print(f)
+#     os.remove(f)
+shutil.rmtree("__pycache__")
